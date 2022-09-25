@@ -1,3 +1,4 @@
+from unittest import result
 import numpy as np
 
 
@@ -45,4 +46,15 @@ class knn:
 
     def voting(self, method):
         k_nearest = self.ranking(method=method)[: self.k]
-        return k_nearest
+        k_nearest = k_nearest[:, -1].reshape(self.k, 1)
+        unique_values = np.unique(k_nearest)
+        vote_list = []
+        for value in unique_values:
+            count = 0
+            for k in k_nearest:
+                if k == value:
+                    count += 1
+            vote_list.append([count, value])
+        vote_list = np.array(vote_list)
+        result = vote_list[vote_list[:, 0].argsort()]
+        return result[-1, -1]

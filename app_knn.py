@@ -1,5 +1,3 @@
-from cgi import test
-from itertools import count
 from models import knn
 import pandas as pd
 from sklearn.model_selection import train_test_split
